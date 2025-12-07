@@ -9,7 +9,7 @@ There solutions won't work for me:
 
   Won't allow to automate the entire operating system.
   Meant to support development and testing of own apps.
-  Requires interacting with X Code.
+  Requires interacting with XCode.
 
 - 3rd party testing tools
 
@@ -45,6 +45,34 @@ Control potentially because AFAIK it renders an outline over the active element.
 
 The virtual pointer displayed when a mouse is connected could also help anchor
 the UI element recognition logic.
+
+1. Install `libimobiledevice` with `brew install libimobiledevice`
+2. Connect the iPhone with a USB C cable
+3. Allow the iPhone accessory to connect via the macOS dialog that appears
+4. Allow the iPhone to trust the macOS computer via the iOS trust dialog
+5. Run `idevicepair pair` and ensure the success confirmation is printed
+
+Turns out for modern iOS versions the "Developer Disk Image" thing (which is
+something that runs alongside iOS on the phone as long as it is connected to the
+macOS computer and provides the macOS<>iOS interaction services),
+`libimobiledevice` can't be used anymore?
+
+1. Install `pymobiledevice3`: `pip3 install pymobiledevice3 --break-system-packages`
+2. Run `sudo pymobiledevice3 lockdown start-tunnel` and note the `--rsd` line
+3. Confirm the pairing request on the iPhone
+
+Next up looks like what's needed is:
+
+1. Enable developer mode: `pymobiledevice3 amfi enable-developer-mode`
+
+   Requires disabling the screen lock (presumably can be re-enabled after).
+   This can also be done via Settings > Privacy & Security, but the option will
+   only appear when connected to XCode.
+
+2. Mount the developer disk image: `pymobiledevice3 mounter auto-mount`
+
+   This will install the developer tools including the `screenshot` service.
+   Without this, this error shows up: `ERROR Failed to start service.`
 
 ## The "write" side
 
