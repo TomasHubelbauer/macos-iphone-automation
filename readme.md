@@ -89,3 +89,11 @@ movement to send to the iPhone paired over BLE.
 
 Switch Control could play some sort of a role here to make the navigation work
 more reliably by automatically switching among landmarks etc.
+
+## To-Do
+
+### Figure out wireless connection
+
+https://github.com/doronz88/pymobiledevice3/blob/master/misc/understanding_idevice_protocol_layers.md
+
+This talks about many useful things, wireless communication being one of them.
